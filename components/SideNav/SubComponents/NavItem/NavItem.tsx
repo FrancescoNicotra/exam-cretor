@@ -30,7 +30,7 @@ export default function Dashboard({ link, text }: INavItem) {
   return (
     <Link
       href={link}
-      className="group hover:bg-slate-200 p-4 transform transition-colors duration-200 rounded-lg"
+      className="group hover:bg-slate-200 p-4 transform transition-colors duration-200 rounded-lg ease-in-out"
     >
       <div
         className={`flex text-2xl align-middle items-center ${

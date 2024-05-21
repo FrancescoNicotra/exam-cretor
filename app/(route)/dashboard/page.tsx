@@ -1,8 +1,15 @@
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
+import AddNewExam from "@/components/Button/SubComponents/AddNewExam/AddNewExam";
+import { GoPlus } from "react-icons/go";
+import { IconType } from "react-icons";
 
 export default async function ProtectedPage() {
   const supabase = createClient();
+
+  const renderIcon = (Icon: IconType) => {
+    return <Icon />;
+  };
 
   const {
     data: { user },
@@ -13,12 +20,13 @@ export default async function ProtectedPage() {
   }
 
   return (
-    <div className="flex-1 w-full flex flex-col gap-20 items-center">
-      <div className="animate-in flex-1 flex flex-col gap-20 opacity-0 max-w-4xl px-3">
-        <main className="flex-1 flex flex-col gap-6">
-          <h2 className="font-bold text-4xl mb-4">Next steps</h2>
-        </main>
+    <>
+      <div className="w-full h-screen flex flex-col">
+        <h2 className="font-bold text-4xl mb-4">Crea il tuo esame</h2>
+        <div className="grid grid-cols-4 gap-4 w-full h-full">
+          <AddNewExam text={"crea un nuovo esame"} Icon={GoPlus} href="/exam/create"/>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
