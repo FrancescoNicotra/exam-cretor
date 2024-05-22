@@ -60,7 +60,10 @@ function CreatePage() {
 
     if (response.ok) {
       const responseData = await response.json();
-      return responseData;
+      if (responseData) {
+        window.alert("Domanda inserita correttamente");
+        window.location.reload();
+      }
     } else {
       const errorData = await response.json();
       return errorData;
@@ -91,12 +94,12 @@ function CreatePage() {
   }, []);
 
   useEffect(() => {
-    if (options) {
+    if (options === undefined || options.length === 0) {
       setCreateNewTopic(true);
     } else {
       setCreateNewTopic(false);
     }
-  }, [options]);
+  }, [options?.length]);
 
   return (
     <div className="w-full rounded-lg flex flex-col">

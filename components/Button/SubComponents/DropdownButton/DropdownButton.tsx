@@ -19,7 +19,7 @@ function DropdownButton({
 
   return (
     <div className="relative">
-      {options?.length === 0 || options === undefined ? (
+      {options === undefined ? (
         <div role="status" className="animate-pulse">
           <div
             className={`h-5 bg-gray-200 rounded-full dark:bg-gray-700 ${
