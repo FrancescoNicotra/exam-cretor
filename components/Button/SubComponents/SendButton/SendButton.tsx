@@ -7,7 +7,7 @@ function SendButton({ text, onClick, disabled }: ISendButton) {
     <button
       onClick={onClick}
       disabled={disabled}
-      className={`flex bg-transparent justify-center items-center align-middle h-full w-full rounded-2xl hover:bg-slate-200 transform transition-colors duration-200 ease-in-out cursor-pointer9 ${
+      className={`flex bg-transparent p-4 justify-center items-center align-middle h-full w-full rounded-2xl hover:bg-slate-200 transform transition-colors duration-200 ease-in-out cursor-pointer9 ${
         disabled ? "opacity-50 cursor-not-allowed" : ""
       }`}
     >

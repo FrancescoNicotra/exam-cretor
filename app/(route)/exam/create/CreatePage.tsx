@@ -5,6 +5,7 @@ import InputField from "@/components/InputField/InputField";
 import SendButton from "@/components/Button/SubComponents/SendButton/SendButton";
 import Checkbox from "@/components/InputField/SubComponents/CheckBox/Checkbox";
 import AddNewField from "@/components/Button/SubComponents/AddNewField/AddNewField";
+import RemoveField from "@/components/Button/SubComponents/RemoveField/RemoveField";
 import DropdownButton from "@/components/Button/SubComponents/DropdownButton/DropdownButton";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 
@@ -16,6 +17,7 @@ function CreatePage() {
   const [answers, setAnswers] = useState<string[]>([]);
   const [correctAnswers, setCorrectAnswers] = useState<number[]>([]);
   const [createNewTopic, setCreateNewTopic] = useState(false);
+  const [options, setOptions] = useState<string[]>();
 
   useEffect(() => {
     if (question !== "" && answers.length === numberOfAnswers) {
@@ -58,10 +60,10 @@ function CreatePage() {
 
     if (response.ok) {
       const responseData = await response.json();
-      console.log("Question sent successfully", responseData);
+      return responseData;
     } else {
       const errorData = await response.json();
-      console.log("Error sending question", errorData);
+      return errorData;
     }
   };
 
@@ -72,6 +74,21 @@ function CreatePage() {
   const handleCloseNewTopic = () => {
     setCreateNewTopic(false);
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch("/api/get-all-topics", {
+        method: "GET",
+      });
+      const data = await response.json();
+
+      const topics = data.map((topic: { topic: string }) => topic.topic);
+
+      setOptions(topics);
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <div className="w-full rounded-lg flex flex-col">
@@ -90,7 +107,7 @@ function CreatePage() {
         {!createNewTopic ? (
           <DropdownButton
             label="Seleziona argomento"
-            options={["Matematica", "Italiano", "Storia", "Geografia"]}
+            options={options}
             className="w-5/6"
           >
             <button
@@ -141,18 +158,19 @@ function CreatePage() {
         </div>
       ))}
       <div className="flex w-5/6 h-12 justify-around">
-        <div className="w-full mr-4">
-          <SendButton
-            text="Inserisci la domanda"
-            onClick={() =>
-              handleClick(question, answers, correctAnswers, topic)
-            }
-            disabled={disabled}
-          />
-        </div>
         <div className="w-full ml-4">
           <AddNewField onClick={() => setNumberOfAnswers((prev) => prev + 1)} />
         </div>
+        <div className="w-full mr-4">
+          <RemoveField onClick={() => setNumberOfAnswers((prev) => prev - 1)} />
+        </div>
+      </div>
+      <div className="w-5/6">
+        <SendButton
+          text="Inserisci la domanda"
+          onClick={() => handleClick(question, answers, correctAnswers, topic)}
+          disabled={disabled}
+        />
       </div>
     </div>
   );
