@@ -90,6 +90,14 @@ function CreatePage() {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    if (options) {
+      setCreateNewTopic(true);
+    } else {
+      setCreateNewTopic(false);
+    }
+  }, [options]);
+
   return (
     <div className="w-full rounded-lg flex flex-col">
       <div className="h-32 w-full mt-3">
