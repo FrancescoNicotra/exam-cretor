@@ -1,3 +1,8 @@
+export interface ITopic {
+  id: number;
+  topic: string;
+}
+
 export interface IQuestion {
   id: number;
   question: string;

@@ -8,6 +8,7 @@ function DropdownButton({
   options,
   children,
   className,
+  setTopic
 }: IDropdownButton) {
   const [isOpen, setIsOpen] = useState(false);
   const handleClick = () => {
@@ -16,6 +17,7 @@ function DropdownButton({
   if (options?.length === 0) {
     return null;
   }
+  const [selectedOption, setSelectedOption] = useState<string>();
 
   return (
     <div className="relative">
@@ -38,7 +40,7 @@ function DropdownButton({
             aria-haspopup="true"
             aria-expanded="true"
           >
-            {label}
+            {selectedOption ? selectedOption : label}
             <RiArrowDropDownLine
               className={`w-5 h-5 ${isOpen ? "transform rotate-180" : ""}`}
             />
@@ -56,6 +58,13 @@ function DropdownButton({
         {options?.map((option) => (
           <div key={option} className="py-1">
             <button
+            onClick={() => {
+              setSelectedOption(option);
+              if (option && setTopic) { // Add null check for setTopic
+                setTopic(option);
+              }
+              setIsOpen(false);
+            }}
               className="block w-full px-4 py-2 text-sm text-gray-700 text-left hover:bg-gray-100 hover:text-gray-900"
               role="menuitem"
             >

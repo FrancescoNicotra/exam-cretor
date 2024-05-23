@@ -100,6 +100,7 @@ function CreatePage() {
       setCreateNewTopic(false);
     }
   }, [options?.length]);
+  console.log(topic);
 
   return (
     <div className="w-full rounded-lg flex flex-col">
@@ -120,6 +121,7 @@ function CreatePage() {
             label="Seleziona argomento"
             options={options}
             className="w-5/6"
+            setTopic={setTopic}
           >
             <button
               onClick={handleOpenNewTopic}

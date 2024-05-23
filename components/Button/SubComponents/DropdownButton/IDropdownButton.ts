@@ -3,4 +3,5 @@ export interface IDropdownButton {
   options?: string[];
   children?: React.ReactNode;
   className?: string;
+  setTopic?: React.Dispatch<React.SetStateAction<string>>; // Add this line
 }

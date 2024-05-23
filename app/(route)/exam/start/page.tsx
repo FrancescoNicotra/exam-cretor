@@ -1,10 +1,13 @@
-import React from 'react'
-import StartExamPage from './StartExam'
+import React, { Suspense } from "react";
+import StartExamPage from "./StartExam";
+import Loading from "../loading";
 
 function StartNewExam() {
   return (
-    <StartExamPage />
-  )
+    <Suspense fallback={<Loading />}>
+      <StartExamPage />
+    </Suspense>
+  );
 }
 
-export default StartNewExam
+export default StartNewExam;
